@@ -73,7 +73,7 @@ public:
         consensus.SegwitHeight = 0; // 0000000073cef7a6e4b1241ea534261c42fcf5d2ecaab4b9567523a7e05725e2
         consensus.MinBIP9WarningHeight = 0; // segwit activation height + miner confirmation window
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 1 * 60; // 1 min to be sure it changes at all blocks
+        consensus.nPowTargetTimespan = 11 * 60; // 11 minutes to be sure it changes at all blocks
         consensus.nPowTargetSpacing = 11 * 60; // 11 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
@@ -159,7 +159,7 @@ public:
         consensus.SegwitHeight = 0; // 00000000beeb8a9719cb80a8b440162b888a6cd77a93a63ef2c397af58a7b8f2
         consensus.MinBIP9WarningHeight = 0; // segwit activation height + miner confirmation window
         consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 1 * 60;
+        consensus.nPowTargetTimespan = 11 * 60;
         consensus.nPowTargetSpacing = 11 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
@@ -240,7 +240,7 @@ public:
         consensus.SegwitHeight = 0; // SEGWIT is always activated on regtest unless overridden
         consensus.MinBIP9WarningHeight = 0;
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 1 * 60;
+        consensus.nPowTargetTimespan = 11 * 60;
         consensus.nPowTargetSpacing = 11 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
