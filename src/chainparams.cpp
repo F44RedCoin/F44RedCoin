@@ -113,14 +113,7 @@ public:
         // This is fine at runtime as we'll fall back to using them as a oneshot if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
-        //vSeeds.emplace_back("seed.f44redcoin.sipa.be"); // Pieter Wuille, only supports x1, x5, x9, and xd
-        //vSeeds.emplace_back("dnsseed.bluematt.me"); // Matt Corallo, only supports x9
-        //vSeeds.emplace_back("dnsseed.f44redcoin.dashjr.org"); // Luke Dashjr
-        //vSeeds.emplace_back("seed.f44redcoinstats.com"); // Christian Decker, supports x1 - xf
-        //vSeeds.emplace_back("seed.f44redcoin.jonasschnelli.ch"); // Jonas Schnelli, only supports x1, x5, x9, and xd
-        //vSeeds.emplace_back("seed.F44Coins.petertodd.org"); // Peter Todd, only supports x1, x5, x9, and xd
-        //vSeeds.emplace_back("seed.f44redcoin.sprovoost.nl"); // Sjors Provoost
-        //vSeeds.emplace_back("dnsseed.emzy.de"); // Stephan Oeste
+        vSeeds.emplace_back("108.61.157.20", "108.61.157.20");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,35);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,8);
