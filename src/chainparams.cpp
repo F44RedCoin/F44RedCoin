@@ -114,8 +114,7 @@ public:
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
        
-        vSeeds.emplace_back("45.77.155.128", "45.77.155.128");
-        vSeeds.emplace_back("108.61.157.20", "108.61.157.20");
+        vSeeds.emplace_back("dnsseed.f44redcoin.club");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,35);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,36);
