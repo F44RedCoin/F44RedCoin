@@ -63,7 +63,7 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = CBaseChainParams::MAIN;
-        consensus.nSubsidyHalvingInterval = 110000;
+        consensus.nSubsidyHalvingInterval = 111111;
         consensus.BIP16Exception = uint256S("0x0000000073cef7a6e4b1241ea534261c42fcf5d2ecaab4b9567523a7e05725e2");
         consensus.BIP34Height = 0;
         consensus.BIP34Hash = uint256S("0x0000000073cef7a6e4b1241ea534261c42fcf5d2ecaab4b9567523a7e05725e2");
@@ -73,8 +73,8 @@ public:
         consensus.SegwitHeight = 0; // 0000000073cef7a6e4b1241ea534261c42fcf5d2ecaab4b9567523a7e05725e2
         consensus.MinBIP9WarningHeight = 0; // segwit activation height + miner confirmation window
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 60; // 1 minute
-        consensus.nPowTargetSpacing = 60; // 1 minute
+        consensus.nPowTargetTimespan = 11 * 60; // every blocks
+        consensus.nPowTargetSpacing = 11 * 60; // 11 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
@@ -155,7 +155,7 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = CBaseChainParams::TESTNET;
-        consensus.nSubsidyHalvingInterval = 210000;
+        consensus.nSubsidyHalvingInterval = 111111;
         consensus.BIP16Exception = uint256S("0x00000000beeb8a9719cb80a8b440162b888a6cd77a93a63ef2c397af58a7b8f2");
         consensus.BIP34Height = 0;
         consensus.BIP34Hash = uint256S("0x00000000beeb8a9719cb80a8b440162b888a6cd77a93a63ef2c397af58a7b8f2");
@@ -165,8 +165,8 @@ public:
         consensus.SegwitHeight = 0; // 00000000beeb8a9719cb80a8b440162b888a6cd77a93a63ef2c397af58a7b8f2
         consensus.MinBIP9WarningHeight = 0; // segwit activation height + miner confirmation window
         consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 60;
-        consensus.nPowTargetSpacing = 60;
+        consensus.nPowTargetTimespan = 11 * 60;
+        consensus.nPowTargetSpacing = 11 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
@@ -246,8 +246,8 @@ public:
         consensus.SegwitHeight = 0; // SEGWIT is always activated on regtest unless overridden
         consensus.MinBIP9WarningHeight = 0;
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 60;
-        consensus.nPowTargetSpacing = 60;
+        consensus.nPowTargetTimespan = 11 * 60;
+        consensus.nPowTargetSpacing = 11 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         consensus.nRuleChangeActivationThreshold = 108; // 75% for testchains
