@@ -113,15 +113,17 @@ public:
         // This is fine at runtime as we'll fall back to using them as a oneshot if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
+       
+        vSeeds.emplace_back("45.77.155.128", "45.77.155.128");
         vSeeds.emplace_back("108.61.157.20", "108.61.157.20");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,35);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,8);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,36);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
 
-        bech32_hrp = "bc";
+       // bech32_hrp = "bc";
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
