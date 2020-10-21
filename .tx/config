@@ -1,0 +1,7 @@
+[main]
+host = https://www.transifex.com
+
+[f44redcoin.qt-translation-020x]
+file_filter = src/qt/locale/f44redcoin_<lang>.ts
+source_file = src/qt/locale/f44redcoin_en.ts
+source_lang = en
