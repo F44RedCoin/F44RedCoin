@@ -72,7 +72,7 @@ public:
         consensus.CSVHeight = 0; // 0000000073cef7a6e4b1241ea534261c42fcf5d2ecaab4b9567523a7e05725e2
         consensus.SegwitHeight = 0; // 0000000073cef7a6e4b1241ea534261c42fcf5d2ecaab4b9567523a7e05725e2
         consensus.MinBIP9WarningHeight = 0; // segwit activation height + miner confirmation window
-        consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 11 * 60; // 11 minutes to be sure it changes at all blocks
         consensus.nPowTargetSpacing = 11 * 60; // 11 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
