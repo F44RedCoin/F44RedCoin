@@ -217,11 +217,11 @@ EOF
     fi
 
     # Test whether tcmalloc is available
-    $CXX $CXXFLAGS -x c++ - -o $CXXOUTPUT -bcmmalloc 2>/dev/null  <<EOF
+    $CXX $CXXFLAGS -x c++ - -o $CXXOUTPUT -f44rmalloc 2>/dev/null  <<EOF
       int main() {}
 EOF
     if [ "$?" = 0 ]; then
-        PLATFORM_LIBS="$PLATFORM_LIBS -bcmmalloc"
+        PLATFORM_LIBS="$PLATFORM_LIBS -f44rmalloc"
     fi
 
     rm -f $CXXOUTPUT 2>/dev/null

@@ -30,7 +30,7 @@ commitFiles=true
 read -d '' usage <<- EOF
 Usage: $scriptName [-c|u|v|b|s|B|o|h|j|m|] signer version
 
-Run this script from the directory containing the f44redcoin, gitian-builder, gitian.sigs.bcm, and f44redcoin-detached-sigs.
+Run this script from the directory containing the f44redcoin, gitian-builder, gitian.sigs.f44r, and f44redcoin-detached-sigs.
 
 Arguments:
 signer          GPG signer to sign each build assert file
@@ -229,7 +229,7 @@ echo ${COMMIT}
 if [[ $setup = true ]]
 then
     sudo apt-get install ruby apache2 git apt-cacher-ng python-vm-builder qemu-kvm qemu-utils
-    git clone https://github.com/f44redcoin-project/gitian.sigs.bcm.git
+    git clone https://github.com/f44redcoin-project/gitian.sigs.f44r.git
     git clone https://github.com/f44redcoin-project/f44redcoin-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
     pushd ./gitian-builder
@@ -272,7 +272,7 @@ then
 	    echo "Compiling ${VERSION} Linux"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit f44redcoin=${COMMIT} --url f44redcoin=${url} ../f44redcoin/contrib/gitian-descriptors/gitian-linux.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs.bcm/ ../f44redcoin/contrib/gitian-descriptors/gitian-linux.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs.f44r/ ../f44redcoin/contrib/gitian-descriptors/gitian-linux.yml
 	    mv build/out/f44redcoin-*.tar.gz build/out/src/f44redcoin-*.tar.gz ../f44redcoin-binaries/${VERSION}
 	fi
 	# Windows
@@ -282,7 +282,7 @@ then
 	    echo "Compiling ${VERSION} Windows"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit f44redcoin=${COMMIT} --url f44redcoin=${url} ../f44redcoin/contrib/gitian-descriptors/gitian-win.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs.bcm/ ../f44redcoin/contrib/gitian-descriptors/gitian-win.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs.f44r/ ../f44redcoin/contrib/gitian-descriptors/gitian-win.yml
 	    mv build/out/f44redcoin-*-win-unsigned.tar.gz inputs/f44redcoin-win-unsigned.tar.gz
 	    mv build/out/f44redcoin-*.zip build/out/f44redcoin-*.exe ../f44redcoin-binaries/${VERSION}
 	fi
@@ -293,7 +293,7 @@ then
 	    echo "Compiling ${VERSION} Mac OSX"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit f44redcoin=${COMMIT} --url f44redcoin=${url} ../f44redcoin/contrib/gitian-descriptors/gitian-osx.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs.bcm/ ../f44redcoin/contrib/gitian-descriptors/gitian-osx.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs.f44r/ ../f44redcoin/contrib/gitian-descriptors/gitian-osx.yml
 	    mv build/out/f44redcoin-*-osx-unsigned.tar.gz inputs/f44redcoin-osx-unsigned.tar.gz
 	    mv build/out/f44redcoin-*.tar.gz build/out/f44redcoin-*.dmg ../f44redcoin-binaries/${VERSION}
 	fi
@@ -322,27 +322,27 @@ then
 	echo ""
 	echo "Verifying v${VERSION} Linux"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs.bcm/ -r ${VERSION}-linux ../f44redcoin/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gverify -v -d ../gitian.sigs.f44r/ -r ${VERSION}-linux ../f44redcoin/contrib/gitian-descriptors/gitian-linux.yml
 	# Windows
 	echo ""
 	echo "Verifying v${VERSION} Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs.bcm/ -r ${VERSION}-win-unsigned ../f44redcoin/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gverify -v -d ../gitian.sigs.f44r/ -r ${VERSION}-win-unsigned ../f44redcoin/contrib/gitian-descriptors/gitian-win.yml
 	# Mac OSX	
 	echo ""
 	echo "Verifying v${VERSION} Mac OSX"
 	echo ""	
-	./bin/gverify -v -d ../gitian.sigs.bcm/ -r ${VERSION}-osx-unsigned ../f44redcoin/contrib/gitian-descriptors/gitian-osx.yml
+	./bin/gverify -v -d ../gitian.sigs.f44r/ -r ${VERSION}-osx-unsigned ../f44redcoin/contrib/gitian-descriptors/gitian-osx.yml
 	# Signed Windows
 	echo ""
 	echo "Verifying v${VERSION} Signed Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs.bcm/ -r ${VERSION}-osx-signed ../f44redcoin/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ../gitian.sigs.f44r/ -r ${VERSION}-osx-signed ../f44redcoin/contrib/gitian-descriptors/gitian-osx-signer.yml
 	# Signed Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Signed Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs.bcm/ -r ${VERSION}-osx-signed ../f44redcoin/contrib/gitian-descriptors/gitian-osx-signer.yml	
+	./bin/gverify -v -d ../gitian.sigs.f44r/ -r ${VERSION}-osx-signed ../f44redcoin/contrib/gitian-descriptors/gitian-osx-signer.yml	
 	popd
 fi
 
@@ -358,7 +358,7 @@ then
 	    echo "Signing ${VERSION} Windows"
 	    echo ""
 	    ./bin/gbuild -i --commit signature=${COMMIT} ../f44redcoin/contrib/gitian-descriptors/gitian-win-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs.bcm/ ../f44redcoin/contrib/gitian-descriptors/gitian-win-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs.f44r/ ../f44redcoin/contrib/gitian-descriptors/gitian-win-signer.yml
 	    mv build/out/f44redcoin-*win64-setup.exe ../f44redcoin-binaries/${VERSION}
 	    mv build/out/f44redcoin-*win32-setup.exe ../f44redcoin-binaries/${VERSION}
 	fi
@@ -369,7 +369,7 @@ then
 	    echo "Signing ${VERSION} Mac OSX"
 	    echo ""
 	    ./bin/gbuild -i --commit signature=${COMMIT} ../f44redcoin/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs.bcm/ ../f44redcoin/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs.f44r/ ../f44redcoin/contrib/gitian-descriptors/gitian-osx-signer.yml
 	    mv build/out/f44redcoin-osx-signed.dmg ../f44redcoin-binaries/${VERSION}/f44redcoin-${VERSION}-osx.dmg
 	fi
 	popd
