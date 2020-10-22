@@ -1,21 +1,19 @@
-// Copyright (c) 2011-2018 The F44RedCoin Core developers
+// Copyright (c) 2011-2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef F44REDCOIN_QT_ADDRESSTABLEMODEL_H
-#define F44REDCOIN_QT_ADDRESSTABLEMODEL_H
+#ifndef BITCOIN_QT_ADDRESSTABLEMODEL_H
+#define BITCOIN_QT_ADDRESSTABLEMODEL_H
 
 #include <QAbstractTableModel>
 #include <QStringList>
 
-enum class OutputType;
+enum OutputType : int;
 
 class AddressTablePriv;
 class WalletModel;
 
-namespace interfaces {
-class Wallet;
-}
+class CWallet;
 
 /**
    Qt model of the address book in the core. This allows views to access and modify the address book.
@@ -25,12 +23,12 @@ class AddressTableModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    explicit AddressTableModel(WalletModel *parent = nullptr);
+    explicit AddressTableModel(CWallet *wallet, WalletModel *parent = 0);
     ~AddressTableModel();
 
     enum ColumnIndex {
         Label = 0,   /**< User specified label */
-        Address = 1  /**< F44RedCoin address */
+        Address = 1  /**< Bitcoin address */
     };
 
     enum RoleIndex {
@@ -67,11 +65,9 @@ public:
      */
     QString addRow(const QString &type, const QString &label, const QString &address, const OutputType address_type);
 
-    /** Look up label for address in address book, if not found return empty string. */
+    /* Look up label for address in address book, if not found return empty string.
+     */
     QString labelForAddress(const QString &address) const;
-
-    /** Look up purpose for address in address book, if not found return empty string. */
-    QString purposeForAddress(const QString &address) const;
 
     /* Look up row index of an address in the model.
        Return -1 if not found.
@@ -80,16 +76,12 @@ public:
 
     EditStatus getEditStatus() const { return editStatus; }
 
-    OutputType GetDefaultAddressType() const;
-
 private:
-    WalletModel* const walletModel;
-    AddressTablePriv *priv = nullptr;
+    WalletModel *walletModel;
+    CWallet *wallet;
+    AddressTablePriv *priv;
     QStringList columns;
-    EditStatus editStatus = OK;
-
-    /** Look up address book data given an address string. */
-    bool getAddressData(const QString &address, std::string* name, std::string* purpose) const;
+    EditStatus editStatus;
 
     /** Notify listeners that data changed. */
     void emitDataChanged(int index);
@@ -102,4 +94,4 @@ public Q_SLOTS:
     friend class AddressTablePriv;
 };
 
-#endif // F44REDCOIN_QT_ADDRESSTABLEMODEL_H
+#endif // BITCOIN_QT_ADDRESSTABLEMODEL_H

@@ -1,15 +1,12 @@
 *.tar.gz
 
 *.exe
-*.pdb
 src/f44redcoin
 src/f44redcoind
 src/f44redcoin-cli
 src/f44redcoin-tx
-src/f44redcoin-wallet
-src/test/fuzz
-!src/test/fuzz/*.*
 src/test/test_f44redcoin
+src/test/test_f44redcoin_fuzzy
 src/qt/test/test_f44redcoin-qt
 
 # autoreconf
@@ -29,15 +26,13 @@ build-aux/m4/ltversion.m4
 build-aux/missing
 build-aux/compile
 build-aux/test-driver
-config.cache
 config.log
 config.status
 configure
 libtool
-src/config/f44redcoin-config.h
-src/config/f44redcoin-config.h.in
+src/config/bitcoin-config.h
+src/config/bitcoin-config.h.in
 src/config/stamp-h1
-src/obj
 share/setup.nsi
 share/qt/Info.plist
 
@@ -49,11 +44,11 @@ src/qt/forms/ui_*.h
 
 src/qt/test/moc*.cpp
 
-src/qt/f44redcoin-qt.config
-src/qt/f44redcoin-qt.creator
-src/qt/f44redcoin-qt.creator.user
-src/qt/f44redcoin-qt.files
-src/qt/f44redcoin-qt.includes
+src/qt/bitcoin-qt.config
+src/qt/bitcoin-qt.creator
+src/qt/bitcoin-qt.creator.user
+src/qt/bitcoin-qt.files
+src/qt/bitcoin-qt.includes
 
 .deps
 .dirstamp
@@ -66,10 +61,10 @@ src/qt/f44redcoin-qt.includes
 *.pyc
 *.o
 *.o-*
+*.patch
 *.a
 *.pb.cc
 *.pb.h
-*.dat
 
 *.log
 *.trs
@@ -78,10 +73,6 @@ src/qt/f44redcoin-qt.includes
 *.json.h
 *.raw.h
 
-# Only ignore unexpected patches
-*.patch
-!depends/patches/**/*.patch
-
 #libtool object files
 *.lo
 *.la
@@ -89,13 +80,9 @@ src/qt/f44redcoin-qt.includes
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-!depends/Makefile
-src/qt/f44redcoin-qt
-F44RedCoin-Qt.app
+f44redcoin-qt
+f44redcoin-Qt.app
 background.tiff*
-
-# Qt Creator
-Makefile.am.user
 
 # Unit-tests
 Makefile.test
@@ -103,13 +90,9 @@ f44redcoin-qt_test
 
 # Resources cpp
 qrc_*.cpp
-
 # Mac specific
 .DS_Store
 build
-
-# Previous releases
-releases
 
 #lcov
 *.gcno
@@ -130,15 +113,5 @@ test/cache/*
 
 /doc/doxygen/
 
-libf44redcoinconsensus.pc
+libbitcoinconsensus.pc
 contrib/devtools/split-debug.sh
-
-# Output from running db4 installation
-db4/
-
-# clang-check
-*.plist
-
-osx_volname
-dist/
-*.background.tiff

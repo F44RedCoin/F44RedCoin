@@ -1,16 +1,18 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2019 The F44RedCoin Core developers
+// Copyright (c) 2009-2017 The Bitcoin Core developers
+// Copyright (c) 2019 The F44RedCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef F44REDCOIN_ARITH_UINT256_H
-#define F44REDCOIN_ARITH_UINT256_H
+#ifndef BITCOIN_ARITH_UINT256_H
+#define BITCOIN_ARITH_UINT256_H
 
+#include <assert.h>
 #include <cstring>
-#include <limits>
 #include <stdexcept>
 #include <stdint.h>
 #include <string>
+#include <vector>
 
 class uint256;
 
@@ -63,6 +65,14 @@ public:
 
     explicit base_uint(const std::string& str);
 
+    bool operator!() const
+    {
+        for (int i = 0; i < WIDTH; i++)
+            if (pn[i] != 0)
+                return false;
+        return true;
+    }
+
     const base_uint operator~() const
     {
         base_uint ret;
@@ -76,7 +86,7 @@ public:
         base_uint ret;
         for (int i = 0; i < WIDTH; i++)
             ret.pn[i] = ~pn[i];
-        ++ret;
+        ret++;
         return ret;
     }
 
@@ -188,7 +198,7 @@ public:
     {
         // prefix operator
         int i = 0;
-        while (i < WIDTH && --pn[i] == std::numeric_limits<uint32_t>::max())
+        while (i < WIDTH && --pn[i] == (uint32_t)-1)
             i++;
         return *this;
     }
@@ -269,7 +279,7 @@ public:
      * Thus 0x1234560000 is compact (0x05123456)
      * and  0xc0de000000 is compact (0x0600c0de)
      *
-     * F44RedCoin only uses this "compact" format for encoding difficulty
+     * Bitcoin only uses this "compact" format for encoding difficulty
      * targets, which are unsigned 256bit quantities.  Thus, all the
      * complexities of the sign bit and using base 256 are probably an
      * implementation accident.
@@ -284,4 +294,4 @@ public:
 uint256 ArithToUint256(const arith_uint256 &);
 arith_uint256 UintToArith256(const uint256 &);
 
-#endif // F44REDCOIN_ARITH_UINT256_H
+#endif // BITCOIN_ARITH_UINT256_H

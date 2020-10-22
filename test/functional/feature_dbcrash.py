@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017-2019 The F44RedCoin Core developers
+# Copyright (c) 2017 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test recovery from a crash during chainstate writing.
@@ -28,30 +28,24 @@
 import errno
 import http.client
 import random
+import sys
 import time
 
-from test_framework.messages import (
-    COIN,
-    COutPoint,
-    CTransaction,
-    CTxIn,
-    CTxOut,
-    ToHex,
-)
-from test_framework.test_framework import F44RedCoinTestFramework
-from test_framework.util import (
-    assert_equal,
-    create_confirmed_utxos,
-    hex_str_to_bytes,
-)
+from test_framework.mininode import *
+from test_framework.script import *
+from test_framework.test_framework import BitcoinTestFramework
+from test_framework.util import *
 
+HTTP_DISCONNECT_ERRORS = [http.client.CannotSendRequest]
+try:
+    HTTP_DISCONNECT_ERRORS.append(http.client.RemoteDisconnected)
+except AttributeError:
+    pass
 
-class ChainstateWriteCrashTest(F44RedCoinTestFramework):
+class ChainstateWriteCrashTest(BitcoinTestFramework):
     def set_test_params(self):
         self.num_nodes = 4
         self.setup_clean_chain = False
-        self.rpc_timeout = 480
-        self.supports_cli = False
 
         # Set -maxmempool=0 to turn off mempool memory sharing with dbcache
         # Set -rpcservertimeout=900 to reduce socket disconnects in this
@@ -59,23 +53,19 @@ class ChainstateWriteCrashTest(F44RedCoinTestFramework):
         self.base_args = ["-limitdescendantsize=0", "-maxmempool=0", "-rpcservertimeout=900", "-dbbatchsize=200000"]
 
         # Set different crash ratios and cache sizes.  Note that not all of
-        # -dbcache goes to the in-memory coins cache.
+        # -dbcache goes to pcoinsTip.
         self.node0_args = ["-dbcrashratio=8", "-dbcache=4"] + self.base_args
         self.node1_args = ["-dbcrashratio=16", "-dbcache=8"] + self.base_args
         self.node2_args = ["-dbcrashratio=24", "-dbcache=16"] + self.base_args
 
         # Node3 is a normal node with default args, except will mine full blocks
-        # and non-standard txs (e.g. txs with "dust" outputs)
-        self.node3_args = ["-blockmaxweight=4000000", "-acceptnonstdtxn"]
+        self.node3_args = ["-blockmaxweight=4000000"]
         self.extra_args = [self.node0_args, self.node1_args, self.node2_args, self.node3_args]
 
-    def skip_test_if_missing_module(self):
-        self.skip_if_no_wallet()
-
     def setup_network(self):
-        self.add_nodes(self.num_nodes, extra_args=self.extra_args)
+        # Need a bit of extra time for the nodes to start up for this test
+        self.add_nodes(self.num_nodes, extra_args=self.extra_args, timewait=90)
         self.start_nodes()
-        self.import_deterministic_coinbase_privkeys()
         # Leave them unconnected, we'll use submitblock directly in this test
 
     def restart_node(self, node_index, expected_tip):
@@ -94,14 +84,14 @@ class ChainstateWriteCrashTest(F44RedCoinTestFramework):
                 return utxo_hash
             except:
                 # An exception here should mean the node is about to crash.
-                # If f44redcoind exits, then try again.  wait_for_node_exit()
-                # should raise an exception if f44redcoind doesn't exit.
+                # If bitcoind exits, then try again.  wait_for_node_exit()
+                # should raise an exception if bitcoind doesn't exit.
                 self.wait_for_node_exit(node_index, timeout=10)
             self.crashed_on_restart += 1
             time.sleep(1)
 
-        # If we got here, f44redcoind isn't coming back up on restart.  Could be a
-        # bug in f44redcoind, or we've gotten unlucky with our dbcrash ratio --
+        # If we got here, bitcoind isn't coming back up on restart.  Could be a
+        # bug in bitcoind, or we've gotten unlucky with our dbcrash ratio --
         # perhaps we generated a test case that blew up our cache?
         # TODO: If this happens a lot, we should try to restart without -dbcrashratio
         # and make sure that recovery happens.
@@ -116,7 +106,14 @@ class ChainstateWriteCrashTest(F44RedCoinTestFramework):
         try:
             self.nodes[node_index].submitblock(block)
             return True
-        except (http.client.CannotSendRequest, http.client.RemoteDisconnected) as e:
+        except http.client.BadStatusLine as e:
+            # Prior to 3.5 BadStatusLine('') was raised for a remote disconnect error.
+            if sys.version_info[0] == 3 and sys.version_info[1] < 5 and e.line == "''":
+                self.log.debug("node %d submitblock raised exception: %s", node_index, e)
+                return False
+            else:
+                raise
+        except tuple(HTTP_DISCONNECT_ERRORS) as e:
             self.log.debug("node %d submitblock raised exception: %s", node_index, e)
             return False
         except OSError as e:
@@ -209,7 +206,7 @@ class ChainstateWriteCrashTest(F44RedCoinTestFramework):
                 tx.vout.append(CTxOut(output_amount, hex_str_to_bytes(utxo['scriptPubKey'])))
 
             # Sign and send the transaction to get into the mempool
-            tx_signed_hex = node.signrawtransactionwithwallet(ToHex(tx))['hex']
+            tx_signed_hex = node.signrawtransaction(ToHex(tx))['hex']
             node.sendrawtransaction(tx_signed_hex)
             num_transactions += 1
 
@@ -279,7 +276,7 @@ class ChainstateWriteCrashTest(F44RedCoinTestFramework):
         # Warn if any of the nodes escaped restart.
         for i in range(3):
             if self.restart_counts[i] == 0:
-                self.log.warning("Node %d never crashed during utxo flush!", i)
+                self.log.warn("Node %d never crashed during utxo flush!", i)
 
 if __name__ == "__main__":
     ChainstateWriteCrashTest().main()

@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2019 The F44RedCoin Core developers
+// Copyright (c) 2011-2014 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef F44REDCOIN_QT_TRANSACTIONDESCDIALOG_H
-#define F44REDCOIN_QT_TRANSACTIONDESCDIALOG_H
+#ifndef BITCOIN_QT_TRANSACTIONDESCDIALOG_H
+#define BITCOIN_QT_TRANSACTIONDESCDIALOG_H
 
 #include <QDialog>
 
@@ -21,11 +21,11 @@ class TransactionDescDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit TransactionDescDialog(const QModelIndex &idx, QWidget *parent = nullptr);
+    explicit TransactionDescDialog(const QModelIndex &idx, QWidget *parent = 0);
     ~TransactionDescDialog();
 
 private:
     Ui::TransactionDescDialog *ui;
 };
 
-#endif // F44REDCOIN_QT_TRANSACTIONDESCDIALOG_H
+#endif // BITCOIN_QT_TRANSACTIONDESCDIALOG_H

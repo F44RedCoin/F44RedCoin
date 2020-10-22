@@ -1,10 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2019 The F44RedCoin Core developers
+// Copyright (c) 2009-2017 The Bitcoin Core developers
+// Copyright (c) 2019 The F44RedCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef F44REDCOIN_POLICY_FEERATE_H
-#define F44REDCOIN_POLICY_FEERATE_H
+#ifndef BITCOIN_POLICY_FEERATE_H
+#define BITCOIN_POLICY_FEERATE_H
 
 #include <amount.h>
 #include <serialize.h>
@@ -25,7 +26,7 @@ public:
     /** Fee rate of 0 satoshis per kB */
     CFeeRate() : nSatoshisPerK(0) { }
     template<typename I>
-    explicit CFeeRate(const I _nSatoshisPerK): nSatoshisPerK(_nSatoshisPerK) {
+    CFeeRate(const I _nSatoshisPerK): nSatoshisPerK(_nSatoshisPerK) {
         // We've previously had bugs creep in from silent double->int conversion...
         static_assert(std::is_integral<I>::value, "CFeeRate should be used without floats");
     }
@@ -56,4 +57,4 @@ public:
     }
 };
 
-#endif //  F44REDCOIN_POLICY_FEERATE_H
+#endif //  BITCOIN_POLICY_FEERATE_H

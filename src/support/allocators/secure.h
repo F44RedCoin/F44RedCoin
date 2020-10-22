@@ -1,10 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2019 The F44RedCoin Core developers
+// Copyright (c) 2009-2017 The Bitcoin Core developers
+// Copyright (c) 2019 The F44RedCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef F44REDCOIN_SUPPORT_ALLOCATORS_SECURE_H
-#define F44REDCOIN_SUPPORT_ALLOCATORS_SECURE_H
+#ifndef BITCOIN_SUPPORT_ALLOCATORS_SECURE_H
+#define BITCOIN_SUPPORT_ALLOCATORS_SECURE_H
 
 #include <support/lockedpool.h>
 #include <support/cleanse.h>
@@ -40,11 +41,7 @@ struct secure_allocator : public std::allocator<T> {
 
     T* allocate(std::size_t n, const void* hint = 0)
     {
-        T* allocation = static_cast<T*>(LockedPoolManager::Instance().alloc(sizeof(T) * n));
-        if (!allocation) {
-            throw std::bad_alloc();
-        }
-        return allocation;
+        return static_cast<T*>(LockedPoolManager::Instance().alloc(sizeof(T) * n));
     }
 
     void deallocate(T* p, std::size_t n)
@@ -59,4 +56,4 @@ struct secure_allocator : public std::allocator<T> {
 // This is exactly like std::string, but with a custom allocator.
 typedef std::basic_string<char, std::char_traits<char>, secure_allocator<char> > SecureString;
 
-#endif // F44REDCOIN_SUPPORT_ALLOCATORS_SECURE_H
+#endif // BITCOIN_SUPPORT_ALLOCATORS_SECURE_H

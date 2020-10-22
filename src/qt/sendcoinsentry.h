@@ -1,27 +1,23 @@
-// Copyright (c) 2011-2019 The F44RedCoin Core developers
+// Copyright (c) 2011-2017 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef F44REDCOIN_QT_SENDCOINSENTRY_H
-#define F44REDCOIN_QT_SENDCOINSENTRY_H
+#ifndef BITCOIN_QT_SENDCOINSENTRY_H
+#define BITCOIN_QT_SENDCOINSENTRY_H
 
-#include <qt/sendcoinsrecipient.h>
+#include <qt/walletmodel.h>
 
 #include <QStackedWidget>
 
 class WalletModel;
 class PlatformStyle;
 
-namespace interfaces {
-class Node;
-} // namespace interfaces
-
 namespace Ui {
     class SendCoinsEntry;
 }
 
 /**
- * A single entry in the dialog for sending f44redcoins.
+ * A single entry in the dialog for sending bitcoins.
  * Stacked widget, with different UIs for payment requests
  * with a strong payee identity.
  */
@@ -30,11 +26,11 @@ class SendCoinsEntry : public QStackedWidget
     Q_OBJECT
 
 public:
-    explicit SendCoinsEntry(const PlatformStyle *platformStyle, QWidget *parent = nullptr);
+    explicit SendCoinsEntry(const PlatformStyle *platformStyle, QWidget *parent = 0);
     ~SendCoinsEntry();
 
     void setModel(WalletModel *model);
-    bool validate(interfaces::Node& node);
+    bool validate();
     SendCoinsRecipient getValue();
 
     /** Return whether the entry is still empty and unedited */
@@ -78,4 +74,4 @@ private:
     bool updateLabel(const QString &address);
 };
 
-#endif // F44REDCOIN_QT_SENDCOINSENTRY_H
+#endif // BITCOIN_QT_SENDCOINSENTRY_H

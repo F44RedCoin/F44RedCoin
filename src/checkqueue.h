@@ -1,9 +1,9 @@
-// Copyright (c) 2012-2018 The F44RedCoin Core developers
+// Copyright (c) 2012-2017 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef F44REDCOIN_CHECKQUEUE_H
-#define F44REDCOIN_CHECKQUEUE_H
+#ifndef BITCOIN_CHECKQUEUE_H
+#define BITCOIN_CHECKQUEUE_H
 
 #include <sync.h>
 
@@ -16,7 +16,7 @@
 template <typename T>
 class CCheckQueueControl;
 
-/**
+/** 
  * Queue for verifications that have to be performed.
   * The verifications are represented by a type T, which must provide an
   * operator(), returning a bool.
@@ -90,7 +90,8 @@ private:
                         nTotal--;
                         bool fRet = fAllOk;
                         // reset the status for new work later
-                        fAllOk = true;
+                        if (fMaster)
+                            fAllOk = true;
                         // return the current status
                         return fRet;
                     }
@@ -162,7 +163,7 @@ public:
 
 };
 
-/**
+/** 
  * RAII-style controller object for a CCheckQueue that guarantees the passed
  * queue is finished before continuing.
  */
@@ -210,4 +211,4 @@ public:
     }
 };
 
-#endif // F44REDCOIN_CHECKQUEUE_H
+#endif // BITCOIN_CHECKQUEUE_H

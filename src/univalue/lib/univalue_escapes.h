@@ -1,6 +1,6 @@
 // Automatically generated file. Do not modify.
-#ifndef F44REDCOIN_UNIVALUE_UNIVALUE_ESCAPES_H
-#define F44REDCOIN_UNIVALUE_UNIVALUE_ESCAPES_H
+#ifndef BITCOIN_UNIVALUE_UNIVALUE_ESCAPES_H
+#define BITCOIN_UNIVALUE_UNIVALUE_ESCAPES_H
 static const char *escapes[256] = {
 	"\\u0000",
 	"\\u0001",
@@ -259,4 +259,4 @@ static const char *escapes[256] = {
 	NULL,
 	NULL,
 };
-#endif // F44REDCOIN_UNIVALUE_UNIVALUE_ESCAPES_H
+#endif // BITCOIN_UNIVALUE_UNIVALUE_ESCAPES_H

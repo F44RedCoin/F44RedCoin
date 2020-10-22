@@ -1,16 +1,17 @@
-// Copyright (c) 2012-2019 The F44RedCoin Core developers
+// Copyright (c) 2012-2017 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef F44REDCOIN_DBWRAPPER_H
-#define F44REDCOIN_DBWRAPPER_H
+#ifndef BITCOIN_DBWRAPPER_H
+#define BITCOIN_DBWRAPPER_H
 
 #include <clientversion.h>
 #include <fs.h>
 #include <serialize.h>
 #include <streams.h>
-#include <util/system.h>
-#include <util/strencodings.h>
+#include <util.h>
+#include <utilstrencodings.h>
+#include <version.h>
 
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
@@ -197,9 +198,6 @@ private:
     //! the database itself
     leveldb::DB* pdb;
 
-    //! the name of this database
-    std::string m_name;
-
     //! a key used for optional XOR-obfuscation of the database
     std::vector<unsigned char> obfuscate_key;
 
@@ -222,9 +220,6 @@ public:
      */
     CDBWrapper(const fs::path& path, size_t nCacheSize, bool fMemory = false, bool fWipe = false, bool obfuscate = false);
     ~CDBWrapper();
-
-    CDBWrapper(const CDBWrapper&) = delete;
-    CDBWrapper& operator=(const CDBWrapper&) = delete;
 
     template <typename K, typename V>
     bool Read(const K& key, V& value) const
@@ -289,9 +284,6 @@ public:
 
     bool WriteBatch(CDBBatch& batch, bool fSync = false);
 
-    // Get an estimate of LevelDB memory usage (in bytes).
-    size_t DynamicMemoryUsage() const;
-
     // not available for LevelDB; provide for compatibility with BDB
     bool Flush()
     {
@@ -348,4 +340,4 @@ public:
 
 };
 
-#endif // F44REDCOIN_DBWRAPPER_H
+#endif // BITCOIN_DBWRAPPER_H

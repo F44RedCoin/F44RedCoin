@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016-2019 The F44RedCoin Core developers
+# Copyright (c) 2016-2017 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test using named arguments for RPCs."""
 
-from test_framework.test_framework import F44RedCoinTestFramework
+from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
 )
 
-class NamedArgumentTest(F44RedCoinTestFramework):
+class NamedArgumentTest(BitcoinTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
-        self.supports_cli = False
 
     def run_test(self):
         node = self.nodes[0]
         h = node.help(command='getblockchaininfo')
-        assert h.startswith('getblockchaininfo\n')
+        assert(h.startswith('getblockchaininfo\n'))
 
         assert_raises_rpc_error(-8, 'Unknown named parameter', node.help, random='getblockchaininfo')
 

@@ -44,11 +44,11 @@ related to the DNS seed operation.
 If these expectations cannot be satisfied the operator should
 discontinue providing services and contact the active F44RedCoin
 Core development team as well as posting on
-[f44redcoin-dev](https://lists.linuxfoundation.org/mailman/listinfo/f44redcoin-dev).
+[f44redcoin-dev](https://groups.google.com/forum/#!forum/f44redcoin-dev).
 
 Behavior outside of these expectations may be reasonable in some
 situations but should be discussed in public in advance.
 
 See also
 ----------
-- [f44redcoin-seeder](https://github.com/sipa/f44redcoin-seeder) is a reference implementation of a DNS seed.
+- [f44redcoin-seeder](https://github.com/pooler/f44redcoin-seeder) is a reference implementation of a DNS seed.

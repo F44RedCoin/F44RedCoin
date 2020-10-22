@@ -1,39 +1,40 @@
-# macOS Build Instructions and Notes
-
+Mac OS X Build Instructions and Notes
+====================================
 The commands in this guide should be executed in a Terminal application.
-The built-in one is located in
-```
-/Applications/Utilities/Terminal.app
-```
+The built-in one is located in `/Applications/Utilities/Terminal.app`.
 
-## Preparation
-Install the macOS command line tools:
+Preparation
+-----------
+Install the OS X command line tools:
 
-```shell
-xcode-select --install
-```
+`xcode-select --install`
 
 When the popup appears, click `Install`.
 
 Then install [Homebrew](https://brew.sh).
 
-## Dependencies
-```shell
-brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python qt libevent qrencode
-```
+Dependencies
+----------------------
 
-If you run into issues, check [Homebrew's troubleshooting page](https://docs.brew.sh/Troubleshooting).
+    brew install automake berkeley-db4 libtool boost miniupnpc openssl pkg-config protobuf python3 qt libevent
+
 See [dependencies.md](dependencies.md) for a complete overview.
 
-If you want to build the disk image with `make deploy` (.dmg / optional), you need RSVG:
-```shell
-brew install librsvg
-```
+If you want to build the disk image with `make deploy` (.dmg / optional), you need RSVG
 
-## Berkeley DB
+    brew install librsvg
+
+If you want to build with ZeroMQ support
+    
+    brew install zeromq
+
+NOTE: Building with Qt4 is still supported, however, could result in a broken UI. Building with Qt5 is recommended.
+
+Berkeley DB
+-----------
 It is recommended to use Berkeley DB 4.8. If you have to build it yourself,
-you can use [this](/contrib/install_db4.sh) script to install it
-like so:
+you can use [the installation script included in contrib/](/contrib/install_db4.sh)
+like so
 
 ```shell
 ./contrib/install_db4.sh .
@@ -41,76 +42,88 @@ like so:
 
 from the root of the repository.
 
-**Note**: You only need Berkeley DB if the wallet is enabled (see [*Disable-wallet mode*](/doc/build-osx.md#disable-wallet-mode)).
+**Note**: You only need Berkeley DB if the wallet is enabled (see the section *Disable-Wallet mode* below).
 
-## Build F44RedCoin Core
+Build F44RedCoin Core
+------------------------
 
-1. Clone the F44RedCoin Core source code:
-    ```shell
-    git clone https://github.com/f44redcoin/f44redcoin
-    cd f44redcoin
-    ```
+1. Clone the f44redcoin source code and cd into `f44redcoin`
 
-2.  Build F44RedCoin Core:
+        git clone https://github.com/f44redcoin-project/f44redcoin
+        cd f44redcoin
 
-    Configure and build the headless F44RedCoin Core binaries as well as the GUI (if Qt is found).
+2.  Build f44redcoin-core:
+
+    Configure and build the headless f44redcoin binaries as well as the GUI (if Qt is found).
 
     You can disable the GUI build by passing `--without-gui` to configure.
-    ```shell
-    ./autogen.sh
-    ./configure
-    make
-    ```
+
+        ./autogen.sh
+        ./configure
+        make
 
 3.  It is recommended to build and run the unit tests:
-    ```shell
-    make check
-    ```
 
-4.  You can also create a  `.dmg` that contains the `.app` bundle (optional):
-    ```shell
-    make deploy
-    ```
+        make check
 
-## `disable-wallet` mode
-When the intention is to run only a P2P node without a wallet, F44RedCoin Core may be
-compiled in `disable-wallet` mode with:
-```shell
-./configure --disable-wallet
-```
+4.  You can also create a .dmg that contains the .app bundle (optional):
 
-In this case there is no dependency on Berkeley DB 4.8.
+        make deploy
 
-Mining is also possible in disable-wallet mode using the `getblocktemplate` RPC call.
+5.  Installation into user directories (optional):
 
-## Running
+        make install
+
+    or
+
+        cd ~/f44redcoin/src
+        cp f44redcoind /usr/local/bin/
+        cp f44redcoin-cli /usr/local/bin/
+
+Running
+-------
+
 F44RedCoin Core is now available at `./src/f44redcoind`
 
-Before running, you may create an empty configuration file:
-```shell
-mkdir -p "/Users/${USER}/Library/Application Support/F44RedCoin"
+Before running, it's recommended you create an RPC configuration file.
 
-touch "/Users/${USER}/Library/Application Support/F44RedCoin/f44redcoin.conf"
+    echo -e "rpcuser=f44redcoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/F44RedCoin/f44redcoin.conf"
 
-chmod 600 "/Users/${USER}/Library/Application Support/F44RedCoin/f44redcoin.conf"
-```
+    chmod 600 "/Users/${USER}/Library/Application Support/F44RedCoin/f44redcoin.conf"
 
-The first time you run f44redcoind, it will start downloading the blockchain. This process could
-take many hours, or even days on slower than average systems.
+The first time you run f44redcoind, it will start downloading the blockchain. This process could take several hours.
 
 You can monitor the download process by looking at the debug.log file:
-```shell
-tail -f $HOME/Library/Application\ Support/F44RedCoin/debug.log
-```
 
-## Other commands:
-```shell
-./src/f44redcoind -daemon      # Starts the f44redcoin daemon.
-./src/f44redcoin-cli --help    # Outputs a list of command-line options.
-./src/f44redcoin-cli help      # Outputs a list of RPC commands when the daemon is running.
-```
+    tail -f $HOME/Library/Application\ Support/F44RedCoin/debug.log
 
-## Notes
-* Tested on OS X 10.12 Sierra through macOS 10.15 Catalina on 64-bit Intel
-processors only.
-* Building with downloaded Qt binaries is not officially supported. See the notes in [#7714](https://github.com/f44redcoin/f44redcoin/issues/7714).
+Other commands:
+-------
+
+    ./src/f44redcoind -daemon # Starts the f44redcoin daemon.
+    ./src/f44redcoin-cli --help # Outputs a list of command-line options.
+    ./src/f44redcoin-cli help # Outputs a list of RPC commands when the daemon is running.
+
+Using Qt Creator as IDE
+------------------------
+You can use Qt Creator as an IDE, for f44redcoin development.
+Download and install the community edition of [Qt Creator](https://www.qt.io/download/).
+Uncheck everything except Qt Creator during the installation process.
+
+1. Make sure you installed everything through Homebrew mentioned above
+2. Do a proper ./configure --enable-debug
+3. In Qt Creator do "New Project" -> Import Project -> Import Existing Project
+4. Enter "f44redcoin-qt" as project name, enter src/qt as location
+5. Leave the file selection as it is
+6. Confirm the "summary page"
+7. In the "Projects" tab select "Manage Kits..."
+8. Select the default "Desktop" kit and select "Clang (x86 64bit in /usr/bin)" as compiler
+9. Select LLDB as debugger (you might need to set the path to your installation)
+10. Start debugging with Qt Creator
+
+Notes
+-----
+
+* Tested on OS X 10.8 through 10.13 on 64-bit Intel processors only.
+
+* Building with downloaded Qt binaries is not officially supported. See the notes in [#7714](https://github.com/bitcoin/bitcoin/issues/7714)

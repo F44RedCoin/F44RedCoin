@@ -1,17 +1,18 @@
-#!/usr/bin/env python3
-# Copyright (c) 2012-2019 The F44RedCoin Core developers
+#!/usr/bin/env python
+# Copyright (c) 2012-2017 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 '''
 Extract _("...") strings for translation and convert to Qt stringdefs so that
 they can be picked up by Qt linguist.
 '''
+from __future__ import division,print_function,unicode_literals
 from subprocess import Popen, PIPE
 import operator
 import os
 import sys
 
-OUT_CPP="qt/f44redcoinstrings.cpp"
+OUT_CPP="qt/bitcoinstrings.cpp"
 EMPTY=['""']
 
 def parse_po(text):
@@ -63,7 +64,7 @@ child = Popen([XGETTEXT,'--output=-','-n','--keyword=_'] + files, stdout=PIPE)
 
 messages = parse_po(out.decode('utf-8'))
 
-f = open(OUT_CPP, 'w', encoding="utf8")
+f = open(OUT_CPP, 'w')
 f.write("""
 
 #include <QtGlobal>
@@ -75,11 +76,14 @@ f.write("""
 #define UNUSED
 #endif
 """)
-f.write('static const char UNUSED *f44redcoin_strings[] = {\n')
-f.write('QT_TRANSLATE_NOOP("f44redcoin-core", "%s"),\n' % (os.getenv('COPYRIGHT_HOLDERS'),))
+f.write('static const char UNUSED *bitcoin_strings[] = {\n')
+f.write('QT_TRANSLATE_NOOP("bitcoin-core", "%s"),\n' % (os.getenv('PACKAGE_NAME'),))
+f.write('QT_TRANSLATE_NOOP("bitcoin-core", "%s"),\n' % (os.getenv('COPYRIGHT_HOLDERS'),))
+if os.getenv('COPYRIGHT_HOLDERS_SUBSTITUTION') != os.getenv('PACKAGE_NAME'):
+    f.write('QT_TRANSLATE_NOOP("bitcoin-core", "%s"),\n' % (os.getenv('COPYRIGHT_HOLDERS_SUBSTITUTION'),))
 messages.sort(key=operator.itemgetter(0))
 for (msgid, msgstr) in messages:
     if msgid != EMPTY:
-        f.write('QT_TRANSLATE_NOOP("f44redcoin-core", %s),\n' % ('\n'.join(msgid)))
+        f.write('QT_TRANSLATE_NOOP("bitcoin-core", %s),\n' % ('\n'.join(msgid)))
 f.write('};\n')
 f.close()

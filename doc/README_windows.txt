@@ -19,5 +19,5 @@ depending on the speed of your computer and network connection, the synchronizat
 process can take anywhere from a few hours to a day or more.
 
 See the f44redcoin wiki at:
-  https://en.f44redcoin.it/wiki/Main_Page
+  https://f44redcoin.info/
 for more help and information.

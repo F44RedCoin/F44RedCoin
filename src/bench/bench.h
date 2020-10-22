@@ -1,11 +1,12 @@
-// Copyright (c) 2015-2020 The F44RedCoin Core developers
+// Copyright (c) 2015-2017 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef F44REDCOIN_BENCH_BENCH_H
-#define F44REDCOIN_BENCH_BENCH_H
+#ifndef BITCOIN_BENCH_BENCH_H
+#define BITCOIN_BENCH_BENCH_H
 
 #include <functional>
+#include <limits>
 #include <map>
 #include <string>
 #include <vector>
@@ -13,9 +14,6 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/stringize.hpp>
-
-struct RegTestingSetup;
-extern const RegTestingSetup* g_testing_setup; //!< A pointer to the current testing setup
 
 // Simple micro-benchmarking framework; API mostly matches a subset of the Google Benchmark
 // framework (see https://github.com/google/benchmark)
@@ -113,9 +111,9 @@ public:
 class ConsolePrinter : public Printer
 {
 public:
-    void header() override;
-    void result(const State& state) override;
-    void footer() override;
+    void header();
+    void result(const State& state);
+    void footer();
 };
 
 // creates box plot with plotly.js
@@ -123,9 +121,9 @@ class PlotlyPrinter : public Printer
 {
 public:
     PlotlyPrinter(std::string plotly_url, int64_t width, int64_t height);
-    void header() override;
-    void result(const State& state) override;
-    void footer() override;
+    void header();
+    void result(const State& state);
+    void footer();
 
 private:
     std::string m_plotly_url;
@@ -141,4 +139,4 @@ private:
 #define BENCHMARK(n, num_iters_for_one_second) \
     benchmark::BenchRunner BOOST_PP_CAT(bench_, BOOST_PP_CAT(__LINE__, n))(BOOST_PP_STRINGIZE(n), n, (num_iters_for_one_second));
 
-#endif // F44REDCOIN_BENCH_BENCH_H
+#endif // BITCOIN_BENCH_BENCH_H

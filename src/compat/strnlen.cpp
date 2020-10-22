@@ -1,9 +1,10 @@
-// Copyright (c) 2009-2018 The F44RedCoin Core developers
+// Copyright (c) 2009-2017 The Bitcoin Core developers
+// Copyright (c) 2019 The F44RedCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include <config/f44redcoin-config.h>
+#include <config/bitcoin-config.h>
 #endif
 
 #include <cstring>

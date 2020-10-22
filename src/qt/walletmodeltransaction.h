@@ -1,32 +1,32 @@
-// Copyright (c) 2011-2019 The F44RedCoin Core developers
+// Copyright (c) 2011-2017 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef F44REDCOIN_QT_WALLETMODELTRANSACTION_H
-#define F44REDCOIN_QT_WALLETMODELTRANSACTION_H
+#ifndef BITCOIN_QT_WALLETMODELTRANSACTION_H
+#define BITCOIN_QT_WALLETMODELTRANSACTION_H
 
-#include <primitives/transaction.h>
-#include <qt/sendcoinsrecipient.h>
+#include <qt/walletmodel.h>
 
-#include <amount.h>
+#include <memory>
 
 #include <QObject>
 
 class SendCoinsRecipient;
 
-namespace interfaces {
-class Node;
-}
+class CReserveKey;
+class CWallet;
+class CWalletTx;
 
 /** Data model for a walletmodel transaction. */
 class WalletModelTransaction
 {
 public:
     explicit WalletModelTransaction(const QList<SendCoinsRecipient> &recipients);
+    ~WalletModelTransaction();
 
     QList<SendCoinsRecipient> getRecipients() const;
 
-    CTransactionRef& getWtx();
+    CWalletTx *getTransaction() const;
     unsigned int getTransactionSize();
 
     void setTransactionFee(const CAmount& newFee);
@@ -34,12 +34,16 @@ public:
 
     CAmount getTotalTransactionAmount() const;
 
+    void newPossibleKeyChange(CWallet *wallet);
+    CReserveKey *getPossibleKeyChange();
+
     void reassignAmounts(int nChangePosRet); // needed for the subtract-fee-from-amount feature
 
 private:
     QList<SendCoinsRecipient> recipients;
-    CTransactionRef wtx;
+    CWalletTx *walletTransaction;
+    std::unique_ptr<CReserveKey> keyChange;
     CAmount fee;
 };
 
-#endif // F44REDCOIN_QT_WALLETMODELTRANSACTION_H
+#endif // BITCOIN_QT_WALLETMODELTRANSACTION_H

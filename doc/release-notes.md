@@ -1,148 +1,90 @@
-0.20.1 Release Notes
-====================
+Bitcoin Core version 0.16.3 is now available from:
 
-F44RedCoin Core version 0.20.1 is now available from:
+  <https://bitcoincore.org/bin/bitcoin-core-0.16.3/>
 
-  <https://f44redcoincore.org/bin/f44redcoin-core-0.20.1/>
-
-This minor release includes various bug fixes and performance
-improvements, as well as updated translations.
+This is a new minor version release, with various bugfixes
+as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/f44redcoin/f44redcoin/issues>
+  <https://github.com/bitcoin/bitcoin/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://f44redcoincore.org/en/list/announcements/join/>
+  <https://bitcoincore.org/en/list/announcements/join/>
 
 How to Upgrade
 ==============
 
 If you are running an older version, shut it down. Wait until it has completely
-shut down (which might take a few minutes in some cases), then run the
-installer (on Windows) or just copy over `/Applications/F44RedCoin-Qt` (on Mac)
-or `f44redcoind`/`f44redcoin-qt` (on Linux).
+shut down (which might take a few minutes for older versions), then run the
+installer (on Windows) or just copy over `/Applications/Bitcoin-Qt` (on Mac)
+or `bitcoind`/`bitcoin-qt` (on Linux).
 
-Upgrading directly from a version of F44RedCoin Core that has reached its EOL is
-possible, but it might take some time if the data directory needs to be migrated. Old
-wallet versions of F44RedCoin Core are generally supported.
+The first time you run version 0.15.0 or newer, your chainstate database will be converted to a
+new format, which will take anywhere from a few minutes to half an hour,
+depending on the speed of your machine.
+
+Note that the block database format also changed in version 0.8.0 and there is no
+automatic upgrade code from before version 0.8 to version 0.15.0 or higher. Upgrading
+directly from 0.7.x and earlier without re-downloading the blockchain is not supported.
+However, as usual, old wallet versions are still supported.
+
+Downgrading warning
+-------------------
+
+Wallets created in 0.16 and later are not compatible with versions prior to 0.16
+and will not work if you try to use newly created wallets in older versions. Existing
+wallets that were created with older versions are not affected by this.
 
 Compatibility
 ==============
 
-F44RedCoin Core is supported and extensively tested on operating systems
-using the Linux kernel, macOS 10.12+, and Windows 7 and newer.  F44RedCoin
-Core should also work on most other Unix-like systems but is not as
-frequently tested on them.  It is not recommended to use F44RedCoin Core on
-unsupported systems.
+Bitcoin Core is extensively tested on multiple operating systems using
+the Linux kernel, macOS 10.8+, and Windows Vista and later. Windows XP is not supported.
 
-From F44RedCoin Core 0.20.0 onwards, macOS versions earlier than 10.12 are no
-longer supported. Additionally, F44RedCoin Core does not yet change appearance
-when macOS "dark mode" is activated.
-
-Known Bugs
-==========
-
-The process for generating the source code release ("tarball") has changed in an
-effort to make it more complete, however, there are a few regressions in
-this release:
-
-- The generated `configure` script is currently missing, and you will need to
-  install autotools and run `./autogen.sh` before you can run
-  `./configure`. This is the same as when checking out from git.
-
-- Instead of running `make` simply, you should instead run
-  `F44REDCOIN_GENBUILD_NO_GIT=1 make`.
+Bitcoin Core should also work on most other Unix-like systems but is not
+frequently tested on them.
 
 Notable changes
 ===============
 
-Changes regarding misbehaving peers
------------------------------------
+Denial-of-Service vulnerability
+-------------------------------
 
-Peers that misbehave (e.g. send us invalid blocks) are now referred to as
-discouraged nodes in log output, as they're not (and weren't) strictly banned:
-incoming connections are still allowed from them, but they're preferred for
-eviction.
+A denial-of-service vulnerability exploitable by miners has been discovered in
+Bitcoin Core versions 0.14.0 up to 0.16.2. It is recommended to upgrade any of
+the vulnerable versions to 0.16.3 as soon as possible.
 
-Furthermore, a few additional changes are introduced to how discouraged
-addresses are treated:
+0.16.3 change log
+------------------
 
-- Discouraging an address does not time out automatically after 24 hours
-  (or the `-bantime` setting). Depending on traffic from other peers,
-  discouragement may time out at an indeterminate time.
-
-- Discouragement is not persisted over restarts.
-
-- There is no method to list discouraged addresses. They are not returned by
-  the `listbanned` RPC. That RPC also no longer reports the `ban_reason`
-  field, as `"manually added"` is the only remaining option.
-
-- Discouragement cannot be removed with the `setban remove` RPC command.
-  If you need to remove a discouragement, you can remove all discouragements by
-  stop-starting your node.
-
-Notification changes
---------------------
-
-`-walletnotify` notifications are now sent for wallet transactions that are
-removed from the mempool because they conflict with a new block. These
-notifications were sent previously before the v0.19 release, but had been
-broken since that release (bug
-[#18325](https://github.com/f44redcoin/f44redcoin/issues/18325)).
-
-0.20.1 change log
-=================
-
-### Mining
-- #19019 Fix GBT: Restore "!segwit" and "csv" to "rules" key (luke-jr)
-
-### P2P protocol and network code
-- #19219 Replace automatic bans with discouragement filter (sipa)
-
-### Wallet
-- #19300 Handle concurrent wallet loading (promag)
-- #18982 Minimal fix to restore conflicted transaction notifications (ryanofsky)
+### Consensus
+- #14249 `696b936` Fix crash bug with duplicate inputs within a transaction (TheBlueMatt, sdaftuar)
 
 ### RPC and other APIs
-- #19524 Increment input value sum only once per UTXO in decodepsbt (fanquake)
-- #19517 psbt: Increment input value sum only once per UTXO in decodepsbt (achow101)
-
-### GUI
-- #19097 Add missing QPainterPath include (achow101)
-- #19059 update Qt base translations for macOS release (fanquake)
-
-### Build system
-- #19152 improve build OS configure output (skmcontrib)
-- #19536 qt, build: Fix QFileDialog for static builds (hebasto)
-
-### Tests and QA
-- #19444 Remove cached directories and associated script blocks from appveyor config (sipsorcery)
-- #18640 appveyor: Remove clcache (MarcoFalke)
+- #13547 `212ef1f` Make `signrawtransaction*` give an error when amount is needed but missing (ajtowns)
 
 ### Miscellaneous
-- #19194 util: Don't reference errno when pthread fails (miztake)
-- #18700 Fix locking on WSL using flock instead of fcntl (meshcollider)
+- #13655 `1cdbea7` bitcoinconsensus: invalid flags error should be set to `bitcoinconsensus_err` (afk11)
+
+### Documentation
+- #13844 `11b9dbb` correct the help output for -prune (hebasto)
 
 Credits
 =======
 
 Thanks to everyone who directly contributed to this release:
 
-- Aaron Clauson
-- Andrew Chow
-- fanquake
+- Anthony Towns
 - Hennadii Stepanov
-- João Barbosa
-- Luke Dashjr
-- MarcoFalke
-- MIZUTA Takeshi
-- Pieter Wuille
-- Russell Yanofsky
-- sachinkm77
-- Samuel Dobson
+- Matt Corallo
+- Suhas Daftuar
+- Thomas Kerin
 - Wladimir J. van der Laan
 
-As well as to everyone that helped with translations on
-[Transifex](https://www.transifex.com/f44redcoin/f44redcoin/).
+And to those that reported security issues:
+
+- beardnboobies
+
+As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/bitcoin/).

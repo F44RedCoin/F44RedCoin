@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2019 The F44RedCoin Core developers
+// Copyright (c) 2016-2017 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,6 +6,7 @@
 
 #include <support/lockedpool.h>
 
+#include <iostream>
 #include <vector>
 
 #define ASIZE 2048
@@ -42,4 +43,4 @@ static void BenchLockedPool(benchmark::State& state)
     addr.clear();
 }
 
-BENCHMARK(BenchLockedPool, 1300);
+BENCHMARK(BenchLockedPool, 530);

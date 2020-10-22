@@ -1,12 +1,12 @@
-// Copyright (c) 2011-2018 The F44RedCoin Core developers
+// Copyright (c) 2011-2017 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef F44REDCOIN_QT_NOTIFICATOR_H
-#define F44REDCOIN_QT_NOTIFICATOR_H
+#ifndef BITCOIN_QT_NOTIFICATOR_H
+#define BITCOIN_QT_NOTIFICATOR_H
 
 #if defined(HAVE_CONFIG_H)
-#include <config/f44redcoin-config.h>
+#include <config/bitcoin-config.h>
 #endif
 
 #include <QIcon>
@@ -57,7 +57,7 @@ private:
     enum Mode {
         None,                       /**< Ignore informational notifications, and show a modal pop-up dialog for Critical notifications. */
         Freedesktop,                /**< Use DBus org.freedesktop.Notifications */
-        QSystemTray,                /**< Use QSystemTrayIcon::showMessage() */
+        QSystemTray,                /**< Use QSystemTray::showMessage */
         UserNotificationCenter      /**< Use the 10.8+ User Notification Center (Mac only) */
     };
     QString programName;
@@ -68,10 +68,10 @@ private:
 
     void notifyDBus(Class cls, const QString &title, const QString &text, const QIcon &icon, int millisTimeout);
 #endif
-    void notifySystray(Class cls, const QString &title, const QString &text, int millisTimeout);
+    void notifySystray(Class cls, const QString &title, const QString &text, const QIcon &icon, int millisTimeout);
 #ifdef Q_OS_MAC
-    void notifyMacUserNotificationCenter(const QString &title, const QString &text);
+    void notifyMacUserNotificationCenter(Class cls, const QString &title, const QString &text, const QIcon &icon);
 #endif
 };
 
-#endif // F44REDCOIN_QT_NOTIFICATOR_H
+#endif // BITCOIN_QT_NOTIFICATOR_H
