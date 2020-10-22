@@ -79,6 +79,7 @@ src/qt/bitcoin-qt.includes
 
 # Compilation and Qt preprocessor part
 *.qm
+Makefile
 f44redcoin-qt
 f44redcoin-Qt.app
 background.tiff*
