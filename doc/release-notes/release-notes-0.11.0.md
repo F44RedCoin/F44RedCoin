@@ -429,7 +429,7 @@ Thanks to everyone who directly contributed to this release:
 - bikinibabe
 - F44RedCoinPRReadingGroup
 - Blake Jakopovic
-- F44CoinsDrak
+- BtcDrak
 - charlescharles
 - Chris Arnesen
 - Ciemon

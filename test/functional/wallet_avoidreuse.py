@@ -177,9 +177,9 @@ class AvoidReuseTest(F44RedCoinTestFramework):
         self.nodes[0].generate(1)
         self.sync_all()
 
-        # listunspent should show 1 single, unused 10 F44Coins output
+        # listunspent should show 1 single, unused 10 f44coins output
         assert_unspent(self.nodes[1], total_count=1, total_sum=10, reused_supported=True, reused_count=0)
-        # getbalances should show no used, 10 F44Coins trusted
+        # getbalances should show no used, 10 f44coins trusted
         assert_balances(self.nodes[1], mine={"used": 0, "trusted": 10})
         # node 0 should not show a used entry, as it does not enable avoid_reuse
         assert("used" not in self.nodes[0].getbalances()["mine"])
@@ -188,28 +188,28 @@ class AvoidReuseTest(F44RedCoinTestFramework):
         self.nodes[0].generate(1)
         self.sync_all()
 
-        # listunspent should show 1 single, unused 5 F44Coins output
+        # listunspent should show 1 single, unused 5 f44coins output
         assert_unspent(self.nodes[1], total_count=1, total_sum=5, reused_supported=True, reused_count=0)
-        # getbalances should show no used, 5 F44Coins trusted
+        # getbalances should show no used, 5 f44coins trusted
         assert_balances(self.nodes[1], mine={"used": 0, "trusted": 5})
 
         self.nodes[0].sendtoaddress(fundaddr, 10)
         self.nodes[0].generate(1)
         self.sync_all()
 
-        # listunspent should show 2 total outputs (5, 10 F44Coins), one unused (5), one reused (10)
+        # listunspent should show 2 total outputs (5, 10 f44coins), one unused (5), one reused (10)
         assert_unspent(self.nodes[1], total_count=2, total_sum=15, reused_count=1, reused_sum=10)
-        # getbalances should show 10 used, 5 F44Coins trusted
+        # getbalances should show 10 used, 5 f44coins trusted
         assert_balances(self.nodes[1], mine={"used": 10, "trusted": 5})
 
         self.nodes[1].sendtoaddress(address=retaddr, amount=10, avoid_reuse=False)
 
-        # listunspent should show 1 total outputs (5 F44Coins), unused
+        # listunspent should show 1 total outputs (5 f44coins), unused
         assert_unspent(self.nodes[1], total_count=1, total_sum=5, reused_count=0)
-        # getbalances should show no used, 5 F44Coins trusted
+        # getbalances should show no used, 5 f44coins trusted
         assert_balances(self.nodes[1], mine={"used": 0, "trusted": 5})
 
-        # node 1 should now have about 5 F44Coins left (for both cases)
+        # node 1 should now have about 5 f44coins left (for both cases)
         assert_approx(self.nodes[1].getbalance(), 5, 0.001)
         assert_approx(self.nodes[1].getbalance(avoid_reuse=False), 5, 0.001)
 
@@ -231,18 +231,18 @@ class AvoidReuseTest(F44RedCoinTestFramework):
         self.nodes[0].generate(1)
         self.sync_all()
 
-        # listunspent should show 1 single, unused 10 F44Coins output
+        # listunspent should show 1 single, unused 10 f44coins output
         assert_unspent(self.nodes[1], total_count=1, total_sum=10, reused_supported=True, reused_count=0)
-        # getbalances should show no used, 10 F44Coins trusted
+        # getbalances should show no used, 10 f44coins trusted
         assert_balances(self.nodes[1], mine={"used": 0, "trusted": 10})
 
         self.nodes[1].sendtoaddress(retaddr, 5)
         self.nodes[0].generate(1)
         self.sync_all()
 
-        # listunspent should show 1 single, unused 5 F44Coins output
+        # listunspent should show 1 single, unused 5 f44coins output
         assert_unspent(self.nodes[1], total_count=1, total_sum=5, reused_supported=True, reused_count=0)
-        # getbalances should show no used, 5 F44Coins trusted
+        # getbalances should show no used, 5 f44coins trusted
         assert_balances(self.nodes[1], mine={"used": 0, "trusted": 5})
 
         # For the second send, we transmute it to a related single-key address
@@ -261,9 +261,9 @@ class AvoidReuseTest(F44RedCoinTestFramework):
         self.nodes[0].generate(1)
         self.sync_all()
 
-        # listunspent should show 2 total outputs (5, 10 F44Coins), one unused (5), one reused (10)
+        # listunspent should show 2 total outputs (5, 10 f44coins), one unused (5), one reused (10)
         assert_unspent(self.nodes[1], total_count=2, total_sum=15, reused_count=1, reused_sum=10)
-        # getbalances should show 10 used, 5 F44Coins trusted
+        # getbalances should show 10 used, 5 f44coins trusted
         assert_balances(self.nodes[1], mine={"used": 10, "trusted": 5})
 
         # node 1 should now have a balance of 5 (no dirty) or 15 (including dirty)
@@ -274,12 +274,12 @@ class AvoidReuseTest(F44RedCoinTestFramework):
 
         self.nodes[1].sendtoaddress(retaddr, 4)
 
-        # listunspent should show 2 total outputs (1, 10 F44Coins), one unused (1), one reused (10)
+        # listunspent should show 2 total outputs (1, 10 f44coins), one unused (1), one reused (10)
         assert_unspent(self.nodes[1], total_count=2, total_sum=11, reused_count=1, reused_sum=10)
-        # getbalances should show 10 used, 1 F44Coins trusted
+        # getbalances should show 10 used, 1 f44coins trusted
         assert_balances(self.nodes[1], mine={"used": 10, "trusted": 1})
 
-        # node 1 should now have about 1 F44Coins left (no dirty) and 11 (including dirty)
+        # node 1 should now have about 1 f44coins left (no dirty) and 11 (including dirty)
         assert_approx(self.nodes[1].getbalance(), 1, 0.001)
         assert_approx(self.nodes[1].getbalance(avoid_reuse=False), 11, 0.001)
 

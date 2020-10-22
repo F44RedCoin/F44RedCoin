@@ -808,7 +808,7 @@ Thanks to everyone who directly contributed to this release:
 - Ashley Holman
 - Bob McElrath
 - Braydon Fuller
-- F44CoinsDrak
+- BtcDrak
 - Casey Rodarmor
 - centaur1
 - Chris Kleeschulte

@@ -53,13 +53,13 @@ class AbandonConflictTest(F44RedCoinTestFramework):
         # Disconnect nodes so node0's transactions don't get into node1's mempool
         disconnect_nodes(self.nodes[0], 1)
 
-        # Identify the 10F44Coins outputs
+        # Identify the 10f44coins outputs
         nA = next(tx_out["vout"] for tx_out in self.nodes[0].gettransaction(txA)["details"] if tx_out["amount"] == Decimal("10"))
         nB = next(tx_out["vout"] for tx_out in self.nodes[0].gettransaction(txB)["details"] if tx_out["amount"] == Decimal("10"))
         nC = next(tx_out["vout"] for tx_out in self.nodes[0].gettransaction(txC)["details"] if tx_out["amount"] == Decimal("10"))
 
         inputs = []
-        # spend 10F44Coins outputs from txA and txB
+        # spend 10f44coins outputs from txA and txB
         inputs.append({"txid": txA, "vout": nA})
         inputs.append({"txid": txB, "vout": nB})
         outputs = {}
@@ -69,7 +69,7 @@ class AbandonConflictTest(F44RedCoinTestFramework):
         signed = self.nodes[0].signrawtransactionwithwallet(self.nodes[0].createrawtransaction(inputs, outputs))
         txAB1 = self.nodes[0].sendrawtransaction(signed["hex"])
 
-        # Identify the 14.99998F44Coins output
+        # Identify the 14.99998f44coins output
         nAB = next(tx_out["vout"] for tx_out in self.nodes[0].gettransaction(txAB1)["details"] if tx_out["amount"] == Decimal("14.99998"))
 
         #Create a child tx spending AB1 and C

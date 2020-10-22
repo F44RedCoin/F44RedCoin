@@ -149,7 +149,7 @@ class WalletTest(F44RedCoinTestFramework):
         self.nodes[1].generate(100)
         self.sync_all(self.nodes[0:3])
 
-        # node0 should end up with 100 F44Coins in block rewards plus fees, but
+        # node0 should end up with 100 f44coins in block rewards plus fees, but
         # minus the 21 plus fees sent to node2
         assert_equal(self.nodes[0].getbalance(), 100 - 21)
         assert_equal(self.nodes[2].getbalance(), 21)
