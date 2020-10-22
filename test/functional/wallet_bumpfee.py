@@ -30,7 +30,7 @@ from test_framework.util import (
 WALLET_PASSPHRASE = "test"
 WALLET_PASSPHRASE_TIMEOUT = 3600
 
-# Fee rates (in F44Coins per 1000 vbytes)
+# Fee rates (in F44R per 1000 vbytes)
 INSUFFICIENT = 0.00001000
 ECONOMICAL   = 0.00050000
 NORMAL       = 0.00100000
@@ -259,10 +259,10 @@ def test_dust_to_fee(self, rbf_node, dest_address):
     # boundary. Thus expected transaction size (p2wpkh, 1 input, 2 outputs) is 140-141 vbytes, usually 141.
     if not 140 <= fulltx["vsize"] <= 141:
         raise AssertionError("Invalid tx vsize of {} (140-141 expected), full tx: {}".format(fulltx["vsize"], fulltx))
-    # Bump with fee_rate of 0.00350250 F44Coins per 1000 vbytes to create dust.
-    # Expected fee is 141 vbytes * fee_rate 0.00350250 F44Coins / 1000 vbytes = 0.00049385 F44Coins.
-    # or occasionally 140 vbytes * fee_rate 0.00350250 F44Coins / 1000 vbytes = 0.00049035 F44Coins.
-    # Dust should be dropped to the fee, so actual bump fee is 0.00050000 F44Coins.
+    # Bump with fee_rate of 0.00350250 F44R per 1000 vbytes to create dust.
+    # Expected fee is 141 vbytes * fee_rate 0.00350250 F44R / 1000 vbytes = 0.00049385 F44R.
+    # or occasionally 140 vbytes * fee_rate 0.00350250 F44R / 1000 vbytes = 0.00049035 F44R.
+    # Dust should be dropped to the fee, so actual bump fee is 0.00050000 F44R.
     bumped_tx = rbf_node.bumpfee(rbfid, {"fee_rate": 0.00350250})
     full_bumped_tx = rbf_node.getrawtransaction(bumped_tx["txid"], 1)
     assert_equal(bumped_tx["fee"], Decimal("0.00050000"))
@@ -290,7 +290,7 @@ def test_settxfee(self, rbf_node, dest_address):
 def test_maxtxfee_fails(self, rbf_node, dest_address):
     self.log.info('Test that bumpfee fails when it hits -matxfee')
     # size of bumped transaction (p2wpkh, 1 input, 2 outputs): 141 vbytes
-    # expected bump fee of 141 vbytes * 0.00200000 F44Coins / 1000 vbytes = 0.00002820 F44Coins
+    # expected bump fee of 141 vbytes * 0.00200000 F44R / 1000 vbytes = 0.00002820 F44R
     # which exceeds maxtxfee and is expected to raise
     self.restart_node(1, ['-maxtxfee=0.000025'] + self.extra_args[1])
     rbf_node.walletpassphrase(WALLET_PASSPHRASE, WALLET_PASSPHRASE_TIMEOUT)

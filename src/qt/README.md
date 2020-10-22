@@ -60,7 +60,7 @@ Represents the view to a single wallet.
 
 * UI elements like F44RedCoinAmountField, which inherit from QWidget.
 * `f44redcoinstrings.cpp`: automatically generated
-* `f44redcoinunits.(h/cpp)`: F44Coins / mF44Coins / etc handling
+* `f44redcoinunits.(h/cpp)`: F44R / mF44R / etc handling
 * `callback.h`
 * `guiconstants.h`: UI colors, app name, etc
 * `guiutil.h`: several helper functions

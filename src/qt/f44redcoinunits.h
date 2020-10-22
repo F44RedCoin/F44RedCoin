@@ -40,9 +40,9 @@ public:
      */
     enum Unit
     {
-        F44Coins,
-        mF44Coins,
-        uF44Coins,
+        F44R,
+        mF44R,
+        uF44R,
         SAT
     };
 

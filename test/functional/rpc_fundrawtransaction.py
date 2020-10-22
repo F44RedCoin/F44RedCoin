@@ -472,7 +472,7 @@ class RawTransactionsTest(F44RedCoinTestFramework):
             ]
         )['address']
 
-        # Send 1.2 F44Coins to msig addr.
+        # Send 1.2 F44R to msig addr.
         self.nodes[0].sendtoaddress(mSigObj, 1.2)
         self.nodes[0].generate(1)
         self.sync_all()

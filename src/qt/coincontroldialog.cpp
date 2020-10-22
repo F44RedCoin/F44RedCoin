@@ -525,7 +525,7 @@ void CoinControlDialog::updateLabels(CCoinControl& m_coin_control, WalletModel *
     }
 
     // actually update labels
-    int nDisplayUnit = F44RedCoinUnits::F44Coins;
+    int nDisplayUnit = F44RedCoinUnits::F44R;
     if (model && model->getOptionsModel())
         nDisplayUnit = model->getOptionsModel()->getDisplayUnit();
 

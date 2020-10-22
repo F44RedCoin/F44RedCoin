@@ -164,8 +164,8 @@ class AvoidReuseTest(F44RedCoinTestFramework):
 
     def test_fund_send_fund_senddirty(self):
         '''
-        Test the same as test_fund_send_fund_send, except send the 10 F44Coins with
-        the avoid_reuse flag set to false. This means the 10 F44Coins send should succeed,
+        Test the same as test_fund_send_fund_send, except send the 10 F44R with
+        the avoid_reuse flag set to false. This means the 10 F44R send should succeed,
         where it fails in test_fund_send_fund_send.
         '''
         self.log.info("Test fund send fund send dirty")
@@ -216,11 +216,11 @@ class AvoidReuseTest(F44RedCoinTestFramework):
     def test_fund_send_fund_send(self, second_addr_type):
         '''
         Test the simple case where [1] generates a new address A, then
-        [0] sends 10 F44Coins to A.
-        [1] spends 5 F44Coins from A. (leaving roughly 5 F44Coins useable)
-        [0] sends 10 F44Coins to A again.
-        [1] tries to spend 10 F44Coins (fails; dirty).
-        [1] tries to spend 4 F44Coins (succeeds; change address sufficient)
+        [0] sends 10 F44R to A.
+        [1] spends 5 F44R from A. (leaving roughly 5 F44R useable)
+        [0] sends 10 F44R to A again.
+        [1] tries to spend 10 F44R (fails; dirty).
+        [1] tries to spend 4 F44R (succeeds; change address sufficient)
         '''
         self.log.info("Test fund send fund send")
 

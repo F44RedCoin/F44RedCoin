@@ -69,7 +69,7 @@ void OptionsModel::Init(bool resetSettings)
 
     // Display
     if (!settings.contains("nDisplayUnit"))
-        settings.setValue("nDisplayUnit", F44RedCoinUnits::F44Coins);
+        settings.setValue("nDisplayUnit", F44RedCoinUnits::F44R);
     nDisplayUnit = settings.value("nDisplayUnit").toInt();
 
     if (!settings.contains("strThirdPartyTxUrls"))

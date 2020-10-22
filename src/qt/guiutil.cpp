@@ -153,7 +153,7 @@ bool parseF44RedCoinURI(const QUrl &uri, SendCoinsRecipient *out)
         {
             if(!i->second.isEmpty())
             {
-                if(!F44RedCoinUnits::parse(F44RedCoinUnits::F44Coins, i->second, &rv.amount))
+                if(!F44RedCoinUnits::parse(F44RedCoinUnits::F44R, i->second, &rv.amount))
                 {
                     return false;
                 }
@@ -186,7 +186,7 @@ QString formatF44RedCoinURI(const SendCoinsRecipient &info)
 
     if (info.amount)
     {
-        ret += QString("?amount=%1").arg(F44RedCoinUnits::format(F44RedCoinUnits::F44Coins, info.amount, false, F44RedCoinUnits::separatorNever));
+        ret += QString("?amount=%1").arg(F44RedCoinUnits::format(F44RedCoinUnits::F44R, info.amount, false, F44RedCoinUnits::separatorNever));
         paramCount++;
     }
 

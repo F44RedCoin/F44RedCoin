@@ -122,7 +122,7 @@ public:
 
             const QFontMetrics fm(fontMetrics());
             int h = lineEdit()->minimumSizeHint().height();
-            int w = GUIUtil::TextWidth(fm, F44RedCoinUnits::format(F44RedCoinUnits::F44Coins, F44RedCoinUnits::maxMoney(), false, F44RedCoinUnits::separatorAlways));
+            int w = GUIUtil::TextWidth(fm, F44RedCoinUnits::format(F44RedCoinUnits::F44R, F44RedCoinUnits::maxMoney(), false, F44RedCoinUnits::separatorAlways));
             w += 2; // cursor blinking space
 
             QStyleOptionSpinBox opt;
@@ -148,7 +148,7 @@ public:
     }
 
 private:
-    int currentUnit{F44RedCoinUnits::F44Coins};
+    int currentUnit{F44RedCoinUnits::F44R};
     CAmount singleStep{CAmount(100000)}; // satoshis
     mutable QSize cachedMinimumSizeHint;
     bool m_allow_empty{true};

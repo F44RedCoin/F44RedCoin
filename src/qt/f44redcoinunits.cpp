@@ -15,9 +15,9 @@ F44RedCoinUnits::F44RedCoinUnits(QObject *parent):
 QList<F44RedCoinUnits::Unit> F44RedCoinUnits::availableUnits()
 {
     QList<F44RedCoinUnits::Unit> unitlist;
-    unitlist.append(F44Coins);
-    unitlist.append(mF44Coins);
-    unitlist.append(uF44Coins);
+    unitlist.append(F44R);
+    unitlist.append(mF44R);
+    unitlist.append(uF44R);
     unitlist.append(SAT);
     return unitlist;
 }
@@ -26,9 +26,9 @@ bool F44RedCoinUnits::valid(int unit)
 {
     switch(unit)
     {
-    case F44Coins:
-    case mF44Coins:
-    case uF44Coins:
+    case F44R:
+    case mF44R:
+    case uF44R:
     case SAT:
         return true;
     default:
@@ -40,9 +40,9 @@ QString F44RedCoinUnits::longName(int unit)
 {
     switch(unit)
     {
-    case F44Coins: return QString("F44Coins");
-    case mF44Coins: return QString("mF44Coins");
-    case uF44Coins: return QString::fromUtf8("µF44Coins (bits)");
+    case F44R: return QString("F44R");
+    case mF44R: return QString("mF44R");
+    case uF44R: return QString::fromUtf8("µF44R (bits)");
     case SAT: return QString("Satoshi (sat)");
     default: return QString("???");
     }
@@ -52,7 +52,7 @@ QString F44RedCoinUnits::shortName(int unit)
 {
     switch(unit)
     {
-    case uF44Coins: return QString::fromUtf8("bits");
+    case uF44R: return QString::fromUtf8("bits");
     case SAT: return QString("sat");
     default: return longName(unit);
     }
@@ -62,9 +62,9 @@ QString F44RedCoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case F44Coins: return QString("F44RedCoins");
-    case mF44Coins: return QString("Milli-F44RedCoins (1 / 1" THIN_SP_UTF8 "000)");
-    case uF44Coins: return QString("Micro-F44RedCoins (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case F44R: return QString("F44RedCoins");
+    case mF44R: return QString("Milli-F44RedCoins (1 / 1" THIN_SP_UTF8 "000)");
+    case uF44R: return QString("Micro-F44RedCoins (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     case SAT: return QString("Satoshi (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
@@ -74,9 +74,9 @@ qint64 F44RedCoinUnits::factor(int unit)
 {
     switch(unit)
     {
-    case F44Coins: return 100000000;
-    case mF44Coins: return 100000;
-    case uF44Coins: return 100;
+    case F44R: return 100000000;
+    case mF44R: return 100000;
+    case uF44R: return 100;
     case SAT: return 1;
     default: return 100000000;
     }
@@ -86,9 +86,9 @@ int F44RedCoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case F44Coins: return 8;
-    case mF44Coins: return 5;
-    case uF44Coins: return 2;
+    case F44R: return 8;
+    case mF44R: return 5;
+    case uF44R: return 2;
     case SAT: return 0;
     default: return 0;
     }
