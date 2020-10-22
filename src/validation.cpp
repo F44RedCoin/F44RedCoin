@@ -1150,18 +1150,15 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     if (halvings >= 64)
         return 0;
 
-    CAmount nSubsidyBase;
+        CAmount nSubsidyBase;
                 
-        if (nHeight == 1) 
-	{
+        if (nHeight == 1) {
          nSubsidyBase = 11000;
         }
-        else if (nHeight >= 2 && nHeight <= 111)
-    	{
-        nSubsidy = 0.000001 * COIN; // to avoid insta-mined blocks at start
-    	}
-        else 
-	{
+        else if (nHeight >= 2 && nHeight <= 111) {
+	 nSubsidyBase = 0.01;
+        }
+        else {
 	 nSubsidyBase = 11;
         }
 

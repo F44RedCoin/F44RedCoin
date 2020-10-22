@@ -130,9 +130,9 @@ public:
 
         vSeeds.emplace_back("dnsseed.f44redcoin.club");
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,35);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,36);
-        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,35);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,95);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,35);
+        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,36);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
@@ -216,9 +216,9 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,65);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,128);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,127);
-        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,128);
+        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,65);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,124);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
@@ -314,9 +314,9 @@ public:
             0
         };
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,60);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,123);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,122);
-        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,123);
+        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,60);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,124);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
