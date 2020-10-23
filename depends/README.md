@@ -10,7 +10,7 @@ To build for another arch/OS:
 
 For example:
 
-    make HOST=x86_64-w64-mingw32 -j4
+    make HOST=x86_64-w64-mingw32 -j$(nproc)
 
 A prefix will be generated that's suitable for plugging into F44RedCoin's
 configure. In the above example, a dir named x86_64-w64-mingw32 will be
