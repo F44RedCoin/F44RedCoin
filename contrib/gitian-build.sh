@@ -16,7 +16,7 @@ osx=true
 SIGNER=
 VERSION=
 commit=false
-url=https://github.com/f44redcoin-project/f44redcoin
+url=https://github.com/F44RedCoin/F44RedCoin
 proc=2
 mem=2000
 lxc=true
@@ -38,7 +38,7 @@ version		Version number, commit, or branch to build. If building a commit or bra
 
 Options:
 -c|--commit	Indicate that the version argument is for a commit or branch
--u|--url	Specify the URL of the repository. Default is https://github.com/f44redcoin-project/f44redcoin
+-u|--url	Specify the URL of the repository. Default is https://github.com/F44RedCoin/F44RedCoin
 -v|--verify 	Verify the gitian build
 -b|--build	Do a gitian build
 -s|--sign	Make signed binaries for Windows and Mac OSX
@@ -229,8 +229,8 @@ echo ${COMMIT}
 if [[ $setup = true ]]
 then
     sudo apt-get install ruby apache2 git apt-cacher-ng python-vm-builder qemu-kvm qemu-utils
-    git clone https://github.com/f44redcoin-project/gitian.sigs.bcm.git
-    git clone https://github.com/f44redcoin-project/f44redcoin-detached-sigs.git
+    git clone https://github.com/F44RedCoin/gitian.sigs.bcm.git
+    git clone https://github.com/F44RedCoin/F44RedCoin-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
     pushd ./gitian-builder
     if [[ -n "$USE_LXC" ]]

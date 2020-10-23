@@ -18,7 +18,7 @@ pkg_add automake # (select highest version, e.g. 1.15)
 pkg_add python # (select highest version, e.g. 3.6)
 pkg_add boost
 
-git clone https://github.com/f44redcoin-project/f44redcoin.git
+git clone https://github.com/F44RedCoin/F44RedCoin.git
 ```
 
 See [dependencies.md](dependencies.md) for a complete overview.

@@ -530,7 +530,7 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/f44redcoindigital/source>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/F44RedCoin/F44RedCoin>";
     const std::string URL_WEBSITE = "<https://f44redcoin.digital>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i"), COPYRIGHT_YEAR) + " ") + "\n" +

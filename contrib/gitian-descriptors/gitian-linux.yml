@@ -28,7 +28,7 @@ packages:
 - "ca-certificates"
 - "python"
 remotes:
-- "url": "https://github.com/f44redcoin-project/f44redcoin.git"
+- "url": "https://github.com/F44RedCoin/F44RedCoin.git"
   "dir": "f44redcoin"
 files: []
 script: |

@@ -7,7 +7,7 @@ architectures:
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/f44redcoin-project/f44redcoin-detached-sigs.git"
+- "url": "https://github.com/F44RedCoin/F44RedCoin-detached-sigs.git"
   "dir": "signature"
 files:
 - "f44redcoin-osx-unsigned.tar.gz"

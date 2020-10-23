@@ -49,7 +49,7 @@ Build F44RedCoin Core
 
 1. Clone the f44redcoin source code and cd into `f44redcoin`
 
-        git clone https://github.com/f44redcoin-project/f44redcoin
+        git clone https://github.com/F44RedCoin/F44RedCoin
         cd f44redcoin
 
 2.  Build f44redcoin-core:

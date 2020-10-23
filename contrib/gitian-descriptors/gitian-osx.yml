@@ -28,7 +28,7 @@ packages:
 - "python-setuptools"
 - "fonts-tuffy"
 remotes:
-- "url": "https://github.com/f44redcoin-project/f44redcoin.git"
+- "url": "https://github.com/F44RedCoin/F44RedCoin.git"
   "dir": "f44redcoin"
 files:
 - "MacOSX10.11.sdk.tar.gz"

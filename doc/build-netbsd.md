@@ -25,7 +25,7 @@ python27
 
 Download the source code:
 ```
-git clone https://github.com/f44redcoin-project/f44redcoin
+git clone https://github.com/F44RedCoin/F44RedCoin
 ```
 
 See [dependencies.md](dependencies.md) for a complete overview.
