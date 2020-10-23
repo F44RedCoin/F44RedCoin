@@ -1,4 +1,4 @@
-![](imgs/f44redcoin.png)
+![](imgs/f44redcoin.jpg)
 
 F44RedCoin Core integration/staging tree
 =====================================
