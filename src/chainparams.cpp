@@ -104,10 +104,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT; 
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100010");
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000394921cff14f9");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0xaed7755238f03a83f18a2f91ceb5b6c1227ed5149b1fe2250c04ae141500f4f9"); 
+        consensus.defaultAssumeValid = uint256S("0x1e455bb17d0207eb74e41112fcdbb919fd0699a00f32fd776fbc9eac0857e19a"); 
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -149,15 +149,16 @@ public:
         checkpointData = {
             {
                 {  0, uint256S("0xaed7755238f03a83f18a2f91ceb5b6c1227ed5149b1fe2250c04ae141500f4f9")},
+                {  134, uint256S("0x1e455bb17d0207eb74e41112fcdbb919fd0699a00f32fd776fbc9eac0857e19a")},
             }
         };
 
         chainTxData = ChainTxData{
-            // Data as of block e4364791a63fcc67882ed621edf2b65ad98420ab843ad2a96b8866d08de7fb43 (height 0).
-            1596528789, // * UNIX timestamp of last known number of transactions
-            0,  // * total number of transactions between genesis and that timestamp
-                    //   (the tx=... number in the SetBestChain debug.log lines)
-            0     // * estimated number of transactions per second after that timestamp
+            // in console: getchaintxstats 134
+            1604283929, // * UNIX timestamp of last known number of transactions
+            210,   // * total number of transactions between genesis and that timestamp
+            212, //   (the tx=... number in the SetBestChain debug.log lines)
+            0.0002560426054895535   // * estimated number of transactions per second after that timestamp
         };
     }
 };
